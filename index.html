@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Motorcycle Comparison</title><style>:root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}header{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;padding:28px 24px}header h1{margin:0 0 4px;font-size:24px}header p{margin:0;color:#cbd5e1;font-size:14px}.wrap{max-width:1400px;margin:0 auto;padding:24px}.summary{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;flex:1;min-width:110px}.stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.stat .v{font-size:18px;font-weight:700;margin-top:2px}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}.controls label{font-size:13px;color:var(--muted);font-weight:600}.controls select,.controls input{font-size:13px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#fff}table.main{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}table.main th{background:#f1f5f9;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);padding:11px 10px;cursor:pointer;user-select:none;white-space:nowrap}table.main th:hover{background:#e2e8f0}table.main td{padding:11px 10px;border-top:1px solid var(--line);vertical-align:top;font-size:13.5px}tr.hidden{display:none}.sub{font-size:12px;color:var(--muted)}.loc{font-size:11px;color:var(--muted);margin-top:2px}.num{white-space:nowrap}.price{font-weight:700;color:#0f172a;font-size:15px}.notes{font-size:12.5px;color:#334155;min-width:290px;max-width:370px}.thumb .ph{width:84px;height:60px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;font-weight:700}.thumb .ph span{font-size:10px;margin-top:2px}.btn{display:inline-block;background:#0f172a;color:#fff;text-decoration:none;padding:7px 11px;border-radius:8px;font-size:12px;font-weight:600;white-space:nowrap}.btn:hover{background:#334155}.disclaimer{margin-top:22px;font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}.scroll{overflow-x:auto}#mapbox{display:none;margin-bottom:16px}#map{height:460px;border:1px solid var(--line);border-radius:12px}.mapnote{font-size:12px;color:var(--muted);margin:6px 2px 0}.rankbadge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;color:#fff;font-weight:700;font-size:12px;background:#64748b}.mapmarker{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:13px;box-sizing:border-box;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.45)}.homemarker{display:flex;align-items:center;justify-content:center;width:30px;height:30px;font-size:20px}#mapBtn{border:none;cursor:pointer}</style><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous"/></head><body><header><h1>🏍 Motorcycle Listing Comparison</h1><p>Aggregated &amp; evaluated from your open tabs · 11 listings within ~2h drive of Oakville, ON (Facebook, Kijiji, dealer) · generated 2026-06-06</p></header><div class="wrap"><div class="summary"><div class="stat"><div class="k">Listings</div><div class="v">11</div></div><div class="stat"><div class="k">Price range</div><div class="v">$3,600–$6,995</div></div><div class="stat"><div class="k">Avg price</div><div class="v">$5,440</div></div><div class="stat"><div class="k">KM range</div><div class="v">0–31,913</div></div><div class="stat"><div class="k">CC range</div><div class="v">399–649 cc</div></div><div class="stat"><div class="k">ABS confirmed</div><div class="v">4 + 1*</div></div><div class="stat"><div class="k">Max travel</div><div class="v">~1h50</div></div></div><div class="controls"><label>Make: <select id="fMake" onchange="applyFilter()"><option value="all">All</option><option>Kawasaki</option><option>Honda</option></select></label><label>Max price: <input id="fPrice" type="number" placeholder="any" style="width:90px" oninput="applyFilter()"></label><label>Max km: <input id="fKm" type="number" placeholder="any" style="width:90px" oninput="applyFilter()"></label><label>ABS: <select id="fAbs" onchange="applyFilter()"><option value="all">All</option><option value="yes">Confirmed only</option></select></label><span style="font-size:12px;color:var(--muted);font-weight:400">← click any column header to sort</span><button id="mapBtn" class="btn" onclick="toggleMap()">🗺 Show map</button></div><div id="mapbox"><div id="map"></div><div class="mapnote">Markers are approximate city locations (listings give a city, not an address). Numbers match the current table sort order; 🏠 = Oakville start point. Tiles © OpenStreetMap contributors.</div></div><div class="scroll"><table class="main"><thead><tr><th>#</th><th>Photo</th><th onclick="sortTable('year','num')">Year / Make / Model ⇅</th><th onclick="sortTable('cc','num')">CC ⇅</th><th onclick="sortTable('price','num')">Price ⇅</th><th onclick="sortTable('km','num')">KM ⇅</th><th onclick="sortTable('mins','num')">Travel ⇅</th><th>Owners</th><th onclick="sortTable('abs','num')">ABS ⇅</th><th onclick="sortTable('score','num')">Condition ⇅</th><th>Notes &amp; flags</th><th></th></tr></thead><tbody data-sortcol="" data-asc="">
-  <tr data-lat="43.4709" data-lng="-81.2009" data-mins="110" data-make="Kawasaki" data-cc="451" data-price="6859" data-km="0" data-score="5" data-year="2025" data-abs="1.5">
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Motorcycle Comparison</title><style>:root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}header{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;padding:28px 24px}header h1{margin:0 0 4px;font-size:24px}header p{margin:0;color:#cbd5e1;font-size:14px}.wrap{max-width:1400px;margin:0 auto;padding:24px}.summary{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;flex:1;min-width:110px}.stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.stat .v{font-size:18px;font-weight:700;margin-top:2px}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}.controls label{font-size:13px;color:var(--muted);font-weight:600}.controls select,.controls input{font-size:13px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#fff}table.main{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}table.main th{background:#f1f5f9;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);padding:11px 10px;cursor:pointer;user-select:none;white-space:nowrap}table.main th:hover{background:#e2e8f0}table.main td{padding:11px 10px;border-top:1px solid var(--line);vertical-align:top;font-size:13.5px}tr.hidden{display:none}.sub{font-size:12px;color:var(--muted)}.loc{font-size:11px;color:var(--muted);margin-top:2px}.num{white-space:nowrap}.price{font-weight:700;color:#0f172a;font-size:15px}.notes{font-size:12.5px;color:#334155;min-width:290px;max-width:370px}.thumb .ph{width:84px;height:60px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;font-weight:700}.thumb .ph span{font-size:10px;margin-top:2px}.btn{display:inline-block;background:#0f172a;color:#fff;text-decoration:none;padding:7px 11px;border-radius:8px;font-size:12px;font-weight:600;white-space:nowrap}.btn:hover{background:#334155}.disclaimer{margin-top:22px;font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}.scroll{overflow-x:auto}#mapbox{display:none;margin-bottom:16px}#map{height:460px;border:1px solid var(--line);border-radius:12px}.mapnote{font-size:12px;color:var(--muted);margin:6px 2px 0}.rankbadge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;color:#fff;font-weight:700;font-size:12px;background:#64748b}.mapmarker{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:13px;box-sizing:border-box;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.45)}.homemarker{display:flex;align-items:center;justify-content:center;width:30px;height:30px;font-size:20px}#mapBtn{border:none;cursor:pointer}</style><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous"/></head><body><header><h1>🏍 Motorcycle Listing Comparison</h1><p>Aggregated &amp; evaluated from your open tabs · 18 listings within ~2h drive of Oakville, ON (Facebook, Kijiji, dealer) · generated 2026-06-06</p></header><div class="wrap"><div class="summary"><div class="stat"><div class="k">Listings</div><div class="v">18</div></div><div class="stat"><div class="k">Price range</div><div class="v">$3,600–$7,300</div></div><div class="stat"><div class="k">Avg price</div><div class="v">$5,762</div></div><div class="stat"><div class="k">KM range</div><div class="v">0–49,000</div></div><div class="stat"><div class="k">CC range</div><div class="v">399–649 cc</div></div><div class="stat"><div class="k">ABS confirmed</div><div class="v">9 + 2*</div></div><div class="stat"><div class="k">Unmodified</div><div class="v">10 of 18</div></div><div class="stat"><div class="k">Max travel</div><div class="v">~1h50</div></div></div><div class="controls"><label>Make: <select id="fMake" onchange="applyFilter()"><option value="all">All</option><option>Kawasaki</option><option>Honda</option></select></label><label>Max price: <input id="fPrice" type="number" placeholder="any" style="width:90px" oninput="applyFilter()"></label><label>Max km: <input id="fKm" type="number" placeholder="any" style="width:90px" oninput="applyFilter()"></label><label>ABS: <select id="fAbs" onchange="applyFilter()"><option value="all">All</option><option value="yes">Confirmed only</option></select></label><label>Mods: <select id="fMod" onchange="applyFilter()"><option value="all">All</option><option value="no">Stock only</option><option value="yes">Modified only</option></select></label><span style="font-size:12px;color:var(--muted);font-weight:400">← click any column header to sort</span><button id="mapBtn" class="btn" onclick="toggleMap()">🗺 Show map</button></div><div id="mapbox"><div id="map"></div><div class="mapnote">Markers are approximate city locations (listings give a city, not an address). Numbers match the current table sort order; 🏠 = Oakville start point. Tiles © OpenStreetMap contributors.</div></div><div class="scroll"><table class="main"><thead><tr><th>#</th><th>Photo</th><th onclick="sortTable('year','num')">Year / Make / Model ⇅</th><th onclick="sortTable('cc','num')">CC ⇅</th><th onclick="sortTable('price','num')">Price ⇅</th><th onclick="sortTable('km','num')">KM ⇅</th><th onclick="sortTable('mins','num')">Travel ⇅</th><th>Owners</th><th onclick="sortTable('abs','num')">ABS ⇅</th><th onclick="sortTable('mod','num')">Modified ⇅</th><th onclick="sortTable('score','num')">Condition ⇅</th><th>Notes &amp; flags</th><th></th></tr></thead><tbody data-sortcol="" data-asc="">
+  <tr data-mod="0" data-lat="43.4709" data-lng="-81.2009" data-mins="110" data-make="Kawasaki" data-cc="451" data-price="6859" data-km="0" data-score="5" data-year="2025" data-abs="1.5">
     <td class="rank"><span class="rankbadge"></span></td>
     <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#16a34a22,#16a34a11);color:#16a34a">🏍<span>Kawasaki</span></div></td>
     <td><strong>2025 Kawasaki Ninja 500</strong><div class="sub">Standard (new)</div><div class="loc">Mitchell, ON (dealer) · <em>Wighty's Repairs</em></div></td>
@@ -10,13 +10,15 @@
     <td class="num"><span style="font-weight:600;color:#92400e">~1h50</span><div class="sub">Mitchell</div></td>
     <td class="num">Dealer (new)</td>
     <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#0e7490;background:#cffafe;padding:3px 9px;border-radius:999px" title="Assumed yes — 2019+ model (ABS standard/typical); verify">ABS*</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px" title="Stock — brand new">No</span></td>
     <td><span style="color:#f59e0b">★★★★★</span><span style="color:#d1d5db"></span><div class="sub">Excellent — brand new</div></td>
     <td class="notes">Brand-new in-stock unit. Price includes $1,000 rebate (ends 2026-07-01) + $760 PDI/freight, but NOT tax, OMVIC fees or licensing. Has warranty. ABS assumed standard on this 2019+ model — confirm with dealer. Lowest-km option but highest true out-the-door cost once taxes added.</td>
     <td><a class="btn" href="https://www.wightysrepairs.com/inventory/2025-kawasaki-ninja-500-mitchell-on-n0k-1n0-13433222i" target="_blank">View ↗</a></td>
   </tr>
 
 
-  <tr data-lat="42.9849" data-lng="-81.2453" data-mins="90" data-make="Kawasaki" data-cc="451" data-price="6995" data-km="310" data-score="5" data-year="2024" data-abs="2">
+
+  <tr data-mod="0" data-lat="42.9849" data-lng="-81.2453" data-mins="90" data-make="Kawasaki" data-cc="451" data-price="6995" data-km="310" data-score="5" data-year="2024" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#16a34a22,#16a34a11);color:#16a34a">🏍<span>Kawasaki</span></div></td>
     <td><strong>2024 Kawasaki Ninja 500 SE</strong><div class="sub">SE (ABS + traction control)</div><div class="loc">London, ON · <em>Kijiji</em></div></td>
@@ -26,13 +28,15 @@
     <td class="num"><span style="font-weight:600;color:#334155">~1h30</span><div class="sub">London</div></td>
     <td class="num">—</td>
     <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px">ABS</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px" title="Stock (SE trim features are factory)">No</span></td>
     <td><span style="color:#f59e0b">★★★★★</span><span style="color:#d1d5db"></span><div class="sub">Mint — 310 km, garage kept</div></td>
     <td class="notes">Virtually new SE trim with just 310 km, "absolutely mint." ABS confirmed (listed feature) plus traction control, Bluetooth dash, frame sliders. Heated-garage stored; UVIP + buyer's package ready. Highest sticker here, but essentially brand-new — and the SE adds traction control the others lack.</td>
     <td><a class="btn" href="https://www.kijiji.ca/v-sport-bikes/london/2024-kawasaki-ninja-500se/1737850145" target="_blank">View ↗</a></td>
   </tr>
 
 
-  <tr data-lat="43.8828" data-lng="-79.4403" data-mins="60" data-make="Kawasaki" data-cc="649" data-price="5500" data-km="29132" data-score="4" data-year="2012" data-abs="1">
+
+  <tr data-mod="0" data-lat="43.8828" data-lng="-79.4403" data-mins="60" data-make="Kawasaki" data-cc="649" data-price="5500" data-km="29132" data-score="4" data-year="2012" data-abs="1">
     <td class="rank"><span class="rankbadge"></span></td>
     <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#16a34a22,#16a34a11);color:#16a34a">🏍<span>Kawasaki</span></div></td>
     <td><strong>2012 Kawasaki Ninja 650</strong><div class="sub">—</div><div class="loc">Richmond Hill, ON · <em>Facebook</em></div></td>
@@ -42,13 +46,15 @@
     <td class="num"><span style="font-weight:600;color:#334155">~1h00</span><div class="sub">Richmond Hill</div></td>
     <td class="num">—</td>
     <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#92400e;background:#fef3c7;padding:3px 9px;border-radius:999px" title="Not stated in listing — verify">?</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px" title="Maintenance only — no aftermarket parts">No</span></td>
     <td><span style="color:#f59e0b">★★★★</span><span style="color:#d1d5db">☆</span><div class="sub">Great — fresh full service</div></td>
     <td class="notes">Just serviced: oil, brake fluid, NEW tires/chain/sprockets, 24-pt inspection, full detail. 3 keys, ownership+UVIP in hand. Safety cert &amp; delivery extra. ABS not stated (was optional) — verify. Well-documented &amp; turn-key; priciest used 650.</td>
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/2518287085274120/" target="_blank">View ↗</a></td>
   </tr>
 
 
-  <tr data-lat="43.7764" data-lng="-79.2318" data-mins="65" data-make="Kawasaki" data-cc="399" data-price="6100" data-km="4350" data-score="5" data-year="2018" data-abs="2">
+
+  <tr data-mod="0" data-lat="43.7764" data-lng="-79.2318" data-mins="65" data-make="Kawasaki" data-cc="399" data-price="6100" data-km="4350" data-score="5" data-year="2018" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#16a34a22,#16a34a11);color:#16a34a">🏍<span>Kawasaki</span></div></td>
     <td><strong>2018 Kawasaki Ninja 400 ABS</strong><div class="sub">ABS</div><div class="loc">Scarborough, ON · <em>Kijiji</em></div></td>
@@ -58,13 +64,15 @@
     <td class="num"><span style="font-weight:600;color:#334155">~1h05</span><div class="sub">Scarborough</div></td>
     <td class="num">1 (first)</td>
     <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px">ABS</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px" title="Stock">No</span></td>
     <td><span style="color:#f59e0b">★★★★★</span><span style="color:#d1d5db"></span><div class="sub">Excellent — never dropped</div></td>
     <td class="notes">Very low 4,350 km, first owner, regularly serviced, never dropped. ABS confirmed (in title/trim). Cover included; stand+supplies extra $100. Excellent low-km used option, though priced near a new-ish 500.</td>
     <td><a class="btn" href="https://www.kijiji.ca/v-sport-bikes/city-of-toronto/kawasaki-ninja-400-abs-less-than-5k-kms/1738386334" target="_blank">View ↗</a></td>
   </tr>
 
 
-  <tr data-lat="43.589" data-lng="-79.6441" data-mins="20" data-make="Kawasaki" data-cc="649" data-price="3600" data-km="14000" data-score="4" data-year="2009" data-abs="0">
+
+  <tr data-mod="0" data-lat="43.589" data-lng="-79.6441" data-mins="20" data-make="Kawasaki" data-cc="649" data-price="3600" data-km="14000" data-score="4" data-year="2009" data-abs="0">
     <td class="rank"><span class="rankbadge"></span></td>
     <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#16a34a22,#16a34a11);color:#16a34a">🏍<span>Kawasaki</span></div></td>
     <td><strong>2009 Kawasaki Ninja 650R</strong><div class="sub">R</div><div class="loc">Mississauga, ON · <em>Kijiji</em></div></td>
@@ -74,13 +82,15 @@
     <td class="num"><span style="font-weight:600;color:#334155">~20 min</span><div class="sub">Mississauga</div></td>
     <td class="num">—</td>
     <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#991b1b;background:#fee2e2;padding:3px 9px;border-radius:999px">No</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px" title="Stock">No</span></td>
     <td><span style="color:#f59e0b">★★★★</span><span style="color:#d1d5db">☆</span><div class="sub">Excellent — garage kept</div></td>
     <td class="notes">Low 14,000 km, never dropped, no damage, garage kept. Ownership+UVIP, 2 keys, tool kit. 2009 650R didn't offer ABS in this market. Reduced $3,900→$3,600, cash only, certify +$250. Oldest bike but very low km. Seller may be out of province.</td>
     <td><a class="btn" href="https://www.kijiji.ca/v-sport-bikes/mississauga-peel-region/2009-kawasaki-ninja-650-r/1735522253" target="_blank">View ↗</a></td>
   </tr>
 
 
-  <tr data-lat="43.8668" data-lng="-79.8663" data-mins="55" data-make="Honda" data-cc="471" data-price="6000" data-km="21681" data-score="4" data-year="2017" data-abs="2">
+
+  <tr data-mod="1" data-lat="43.8668" data-lng="-79.8663" data-mins="55" data-make="Honda" data-cc="471" data-price="6000" data-km="21681" data-score="4" data-year="2017" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#dc262622,#dc262611);color:#dc2626">🏍<span>Honda</span></div></td>
     <td><strong>2017 Honda CBR500R</strong><div class="sub">Akrapovič exhaust</div><div class="loc">Caledon, ON · <em>Facebook</em></div></td>
@@ -90,13 +100,15 @@
     <td class="num"><span style="font-weight:600;color:#334155">~55 min</span><div class="sub">Caledon</div></td>
     <td class="num">—</td>
     <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px">ABS</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#9a3412;background:#ffedd5;padding:3px 9px;border-radius:999px" title="Akrapovič exhaust — insurance-relevant">Yes</span></td>
     <td><span style="color:#f59e0b">★★★★</span><span style="color:#d1d5db">☆</span><div class="sub">Good — well maintained</div></td>
     <td class="notes">Premium Akrapovič carbon exhaust ($900+). Garage-stored, never dropped, serviced every 3-4k km, clean plastics. ABS confirmed (listing states front &amp; rear disc with ABS). Honest, detailed listing. Higher km but very nicely kept.</td>
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/972583755320661/" target="_blank">View ↗</a></td>
   </tr>
 
 
-  <tr data-lat="43.892" data-lng="-79.425" data-mins="60" data-make="Honda" data-cc="471" data-price="6700" data-km="10700" data-score="4" data-year="2019" data-abs="2">
+
+  <tr data-mod="1" data-lat="43.892" data-lng="-79.425" data-mins="60" data-make="Honda" data-cc="471" data-price="6700" data-km="10700" data-score="4" data-year="2019" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#dc262622,#dc262611);color:#dc2626">🏍<span>Honda</span></div></td>
     <td><strong>2019 Honda CBR500R</strong><div class="sub">CBR500RA</div><div class="loc">Richmond Hill, ON · <em>Facebook</em></div></td>
@@ -106,13 +118,15 @@
     <td class="num"><span style="font-weight:600;color:#334155">~1h00</span><div class="sub">Richmond Hill</div></td>
     <td class="num">2</td>
     <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px">ABS</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#9a3412;background:#ffedd5;padding:3px 9px;border-radius:999px" title="Two Brothers exhaust — insurance-relevant">Yes</span></td>
     <td><span style="color:#f59e0b">★★★★</span><span style="color:#d1d5db">☆</span><div class="sub">Good — runs perfect</div></td>
     <td class="notes">Only 10,700 km (rode 1 season/4,000km), 2nd owner. The 'RA' designation = ABS model. Mods: tail tidy, tank grips, CRG levers, Two Brothers exhaust (+stock). Extras: rear stand, chain kit. Low km but most expensive CBR.</td>
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/1397955382352980/" target="_blank">View ↗</a></td>
   </tr>
 
 
-  <tr data-lat="43.971" data-lng="-79.2452" data-mins="70" data-make="Honda" data-cc="471" data-price="4500" data-km="29000" data-score="3" data-year="2016" data-abs="1">
+
+  <tr data-mod="1" data-lat="43.971" data-lng="-79.2452" data-mins="70" data-make="Honda" data-cc="471" data-price="4500" data-km="29000" data-score="3" data-year="2016" data-abs="1">
     <td class="rank"><span class="rankbadge"></span></td>
     <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#dc262622,#dc262611);color:#dc2626">🏍<span>Honda</span></div></td>
     <td><strong>2016 Honda CBR500R</strong><div class="sub">Slip-on exhaust</div><div class="loc">Whitchurch-Stouffville, ON · <em>Facebook</em></div></td>
@@ -122,13 +136,15 @@
     <td class="num"><span style="font-weight:600;color:#334155">~1h10</span><div class="sub">Whitchurch-Stouffville</div></td>
     <td class="num">—</td>
     <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#92400e;background:#fef3c7;padding:3px 9px;border-radius:999px" title="Not stated in listing — verify">?</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#9a3412;background:#ffedd5;padding:3px 9px;border-radius:999px" title="Slip-on exhaust — insurance-relevant">Yes</span></td>
     <td><span style="color:#f59e0b">★★★</span><span style="color:#d1d5db">☆☆</span><div class="sub">Mint (seller-stated)</div></td>
     <td class="notes">'Super mint, meticulously maintained.' Mods: slip-on, tidy tail, LED indicators, tank pads. ABS not stated (was a separate model option) — verify. $4,500 obo. Seller new to FB (2025). Higher km.</td>
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/1425744806237300/" target="_blank">View ↗</a></td>
   </tr>
 
 
-  <tr data-lat="43.7615" data-lng="-79.4111" data-mins="45" data-make="Honda" data-cc="471" data-price="4388" data-km="31913" data-score="2" data-year="2017" data-abs="1">
+
+  <tr data-mod="0" data-lat="43.7615" data-lng="-79.4111" data-mins="45" data-make="Honda" data-cc="471" data-price="4388" data-km="31913" data-score="2" data-year="2017" data-abs="1">
     <td class="rank"><span class="rankbadge"></span></td>
     <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#dc262622,#dc262611);color:#dc2626">🏍<span>Honda</span></div></td>
     <td><strong>2017 Honda CBR500R</strong><div class="sub">AS-IS (dealer)</div><div class="loc">North York, ON · <em>FB / Shwill Auto</em></div></td>
@@ -138,13 +154,15 @@
     <td class="num"><span style="font-weight:600;color:#334155">~45 min</span><div class="sub">North York</div></td>
     <td class="num">—</td>
     <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#92400e;background:#fef3c7;padding:3px 9px;border-radius:999px" title="Not stated in listing — verify">?</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px" title="None noted">No</span></td>
     <td><span style="color:#f59e0b">★★</span><span style="color:#d1d5db">☆☆☆</span><div class="sub">Unknown — sold AS-IS</div></td>
     <td class="notes">DEALER AS-IS: explicitly NOT represented as roadworthy or mechanically sound. ABS not stated. Certification +$699+HST; price excludes HST &amp; licensing. Highest km. Cheapest sticker but riskiest — real cost much higher after cert/tax.</td>
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/881349261072085/" target="_blank">View ↗</a></td>
   </tr>
 
 
-  <tr data-lat="44.109" data-lng="-79.1205" data-mins="85" data-make="Honda" data-cc="471" data-price="4000" data-km="27231" data-score="2" data-year="2014" data-abs="1">
+
+  <tr data-mod="0" data-lat="44.109" data-lng="-79.1205" data-mins="85" data-make="Honda" data-cc="471" data-price="4000" data-km="27231" data-score="2" data-year="2014" data-abs="1">
     <td class="rank"><span class="rankbadge"></span></td>
     <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#dc262622,#dc262611);color:#dc2626">🏍<span>Honda</span></div></td>
     <td><strong>2014 Honda CBR500R</strong><div class="sub">—</div><div class="loc">Uxbridge, ON · <em>Facebook</em></div></td>
@@ -154,13 +172,15 @@
     <td class="num"><span style="font-weight:600;color:#334155">~1h25</span><div class="sub">Uxbridge</div></td>
     <td class="num">—</td>
     <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#92400e;background:#fef3c7;padding:3px 9px;border-radius:999px" title="Not stated in listing — verify">?</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px" title="None noted">No</span></td>
     <td><span style="color:#f59e0b">★★</span><span style="color:#d1d5db">☆☆☆</span><div class="sub">Good (very brief)</div></td>
     <td class="notes">Description is just 'Runs and looks great!' — almost no info, no service history, ABS not stated. Cheap, but treat the lack of detail as a flag and inspect thoroughly.</td>
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/2039926026948577/" target="_blank">View ↗</a></td>
   </tr>
 
 
-  <tr data-lat="43.4516" data-lng="-80.4925" data-mins="55" data-make="Honda" data-cc="471" data-price="5200" data-km="22000" data-score="3" data-year="2013" data-abs="1">
+
+  <tr data-mod="1" data-lat="43.4516" data-lng="-80.4925" data-mins="55" data-make="Honda" data-cc="471" data-price="5200" data-km="22000" data-score="3" data-year="2013" data-abs="1">
     <td class="rank"><span class="rankbadge"></span></td>
     <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#dc262622,#dc262611);color:#dc2626">🏍<span>Honda</span></div></td>
     <td><strong>2013 Honda CBR500R</strong><div class="sub">Akrapovič slip-on</div><div class="loc">Kitchener, ON · <em>Kijiji</em></div></td>
@@ -170,8 +190,114 @@
     <td class="num"><span style="font-weight:600;color:#334155">~55 min</span><div class="sub">Kitchener</div></td>
     <td class="num">2+</td>
     <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#92400e;background:#fef3c7;padding:3px 9px;border-radius:999px" title="Not stated in listing — verify">?</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#9a3412;background:#ffedd5;padding:3px 9px;border-radius:999px" title="Akrapovič slip-on — insurance-relevant">Yes</span></td>
     <td><span style="color:#f59e0b">★★★</span><span style="color:#d1d5db">☆☆</span><div class="sub">Fair — disclosed flaws</div></td>
     <td class="notes">Transparent seller (16 yrs on Kijiji, 5.0/24). Discloses small tank dent + rear cowl scratches but 'runs perfectly.' Akrapovič slip-on (+stock). ABS not stated (2013 was first CBR500R year; ABS was a separate model) — verify. Seller riding it until ~June 16.</td>
     <td><a class="btn" href="https://www.kijiji.ca/v-sport-bikes/kitchener-waterloo/2013-honda-cbr500r/1738416536" target="_blank">View ↗</a></td>
   </tr>
-  </tbody></table></div><div class="disclaimer"><strong>How to read this &amp; caveats:</strong> <span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:2px 8px;border-radius:999px">ABS</span> = confirmed in the listing, <span style="display:inline-block;font-size:11px;font-weight:700;color:#0e7490;background:#cffafe;padding:2px 8px;border-radius:999px">ABS*</span> = assumed yes (2019+ model, where ABS is standard/typical) — still verify, <span style="display:inline-block;font-size:11px;font-weight:700;color:#991b1b;background:#fee2e2;padding:2px 8px;border-radius:999px">No</span> = model/year had no ABS, <span style="display:inline-block;font-size:11px;font-weight:700;color:#92400e;background:#fef3c7;padding:2px 8px;border-radius:999px">?</span> = not stated, verify with seller. ABS was often a separate model/option on these bikes (e.g. Honda "RA" = ABS), so a "?" doesn't mean it lacks ABS — check the VIN/bike in person. Condition ratings (★) are my rough read of each listing's wording, photos and detail level — not a physical inspection. Prices are asking prices; private sales usually exclude safety certification and the dealer/AS-IS listings exclude HST, licensing and OMVIC fees. Thumbnails are styled placeholders (marketplace image URLs are access-restricted); use "View ↗" for real photos. <strong>Travel times</strong> are rough one-way driving estimates from Oakville, ON in light traffic — verify your own route. Three Ottawa listings (~4.5 h each) were removed for exceeding the 2-hour limit. Always inspect in person and verify ownership/UVIP before buying.</div></div><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script><script>function sortTable(col,type){var tb=document.querySelector('tbody');var rows=[].slice.call(tb.querySelectorAll('tr'));var asc=tb.getAttribute('data-sortcol')==col?tb.getAttribute('data-asc')!=='true':true;rows.sort(function(a,b){var x,y;if(type==='num'){x=parseFloat(a.dataset[col]);y=parseFloat(b.dataset[col]);}else{x=a.dataset[col];y=b.dataset[col];}if(x<y)return asc?-1:1;if(x>y)return asc?1:-1;return 0;});rows.forEach(function(r){tb.appendChild(r);});tb.setAttribute('data-sortcol',col);tb.setAttribute('data-asc',asc);}function applyFilter(){var mk=document.getElementById('fMake').value;var maxP=parseFloat(document.getElementById('fPrice').value)||Infinity;var maxK=parseFloat(document.getElementById('fKm').value)||Infinity;var ab=document.getElementById('fAbs').value;[].slice.call(document.querySelectorAll('tbody tr')).forEach(function(r){var ok=(mk==='all'||r.dataset.make===mk)&&parseFloat(r.dataset.price)<=maxP&&parseFloat(r.dataset.km)<=maxK&&(ab==='all'||r.dataset.abs==='2');r.classList.toggle('hidden',!ok);});}var _map,_layer,_built=false;function _mkColor(mk){return mk==='Honda'?'#dc2626':'#16a34a';}function renderRanksAndMap(){var rows=[].slice.call(document.querySelectorAll('tbody tr')).filter(function(r){return !r.classList.contains('hidden');});var pts=[];rows.forEach(function(r,i){var n=i+1;var rb=r.querySelector('.rankbadge');if(rb){rb.textContent=n;rb.style.background=_mkColor(r.dataset.make);}if(r.dataset.lat){pts.push({n:n,lat:parseFloat(r.dataset.lat),lng:parseFloat(r.dataset.lng),mk:r.dataset.make,title:r.querySelector('strong').textContent,price:(r.querySelector('.price')||{}).textContent||'',url:(r.querySelector('a.btn')||{}).href||'#'});}});if(_map&&_layer){_layer.clearLayers();var g=[];pts.forEach(function(p){var ic=L.divIcon({className:'',iconSize:[26,26],iconAnchor:[13,13],html:'<div class="mapmarker" style="background:'+_mkColor(p.mk)+'">'+p.n+'</div>'});L.marker([p.lat,p.lng],{icon:ic}).bindPopup('<strong>#'+p.n+' '+p.title+'</strong><br>'+p.price+'<br><a href="'+p.url+'" target="_blank">View listing ↗</a>').addTo(_layer);g.push([p.lat,p.lng]);});var hi=L.divIcon({className:'',iconSize:[30,30],iconAnchor:[15,15],html:'<div class="homemarker">🏠</div>'});L.marker([43.4675,-79.6877],{icon:hi}).bindPopup('<strong>Oakville, ON</strong><br>Home / start point').addTo(_layer);g.push([43.4675,-79.6877]);if(g.length)_map.fitBounds(g,{padding:[40,40]});}}function toggleMap(){var box=document.getElementById('mapbox'),btn=document.getElementById('mapBtn');var show=box.style.display===''||box.style.display==='none';box.style.display=show?'block':'none';btn.textContent=show?'🗺 Hide map':'🗺 Show map';if(show){if(!_built){_map=L.map('map',{scrollWheelZoom:false}).setView([43.6,-79.9],8);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(_map);_layer=L.layerGroup().addTo(_map);_built=true;}setTimeout(function(){_map.invalidateSize();renderRanksAndMap();},60);}}var _origSort=sortTable,_origFilter=applyFilter;sortTable=function(c,t){_origSort(c,t);renderRanksAndMap();};applyFilter=function(){_origFilter();renderRanksAndMap();};(function(){var tb=document.querySelector('tbody');tb.setAttribute('data-sortcol','price');tb.setAttribute('data-asc','true');sortTable('price','num');})();</script></body></html>
+  <tr data-lat="43.8971" data-lng="-78.8658" data-mins="80" data-mod="1" data-make="Kawasaki" data-cc="399" data-price="5000" data-km="49000" data-score="3" data-year="2019" data-abs="2">
+    <td class="rank"><span class="rankbadge"></span></td>
+    <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#16a34a22,#16a34a11);color:#16a34a">🏍<span>Kawasaki</span></div></td>
+    <td><strong>2019 Kawasaki Ninja 400 ABS</strong><div class="sub">SE · Leo Vince muffler</div><div class="loc">Oshawa, ON · <em>Kijiji</em></div></td>
+    <td class="num">399 cc</td>
+    <td class="num"><span class="price">$5,000</span></td>
+    <td class="num">49,000 km</td>
+    <td class="num"><span style="font-weight:600;color:#334155">~1h20</span><div class="sub">Oshawa</div></td>
+    <td class="num">3rd</td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px">ABS</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#9a3412;background:#ffedd5;padding:3px 9px;border-radius:999px" title="Leo Vince muffler — insurance-relevant">Yes</span></td>
+    <td><span style="color:#f59e0b">★★★</span><span style="color:#d1d5db">☆☆</span><div class="sub">Good — high km, 3rd owner</div></td>
+    <td class="notes">ABS confirmed (SE trim). 3rd owner, 49,000 km — highest-km 400 here. Leo Vince muffler = insurance-relevant mod; all stock parts included. Extras: CarPlay screen, crash sliders, new Michelin Road 6, new battery. "Runs perfectly." High km is the main flag.</td>
+    <td><a class="btn" href="https://www.kijiji.ca/v-sport-bikes/oshawa-durham-region/2019-kawasaki-ninja-400-abs/1738448839" target="_blank">View ↗</a></td>
+  </tr>
+  <tr data-lat="43.6764" data-lng="-79.293" data-mins="60" data-mod="1" data-make="Honda" data-cc="471" data-price="5500" data-km="24900" data-score="3" data-year="2019" data-abs="2">
+    <td class="rank"><span class="rankbadge"></span></td>
+    <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#dc262622,#dc262611);color:#dc2626">🏍<span>Honda</span></div></td>
+    <td><strong>2019 Honda CBR500R</strong><div class="sub">CBR500RA · Delkevic exhaust</div><div class="loc">Toronto (Beaches), ON · <em>Kijiji</em></div></td>
+    <td class="num">471 cc</td>
+    <td class="num"><span class="price">$5,500</span></td>
+    <td class="num">24,900 km</td>
+    <td class="num"><span style="font-weight:600;color:#334155">~1h00</span><div class="sub">Toronto (Beaches)</div></td>
+    <td class="num">—</td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px">ABS</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#9a3412;background:#ffedd5;padding:3px 9px;border-radius:999px" title="Delkevic exhaust — insurance-relevant">Yes</span></td>
+    <td><span style="color:#f59e0b">★★★</span><span style="color:#d1d5db">☆☆</span><div class="sub">Good — mint paint</div></td>
+    <td class="notes">Listing calls it "500 RA" → RA = ABS model (confirmed). 24,900 km, mint paint. Delkevic exhaust = insurance-relevant; includes custom + stock seats, plate tidy, OEM plate bracket, new rear Michelin. $5,500 OBO, open to trades for a middleweight naked. Owner count not stated — verify.</td>
+    <td><a class="btn" href="https://www.kijiji.ca/v-sport-touring/city-of-toronto/2019-cbr-500r/1738265052" target="_blank">View ↗</a></td>
+  </tr>
+  <tr data-lat="43.8563" data-lng="-79.5085" data-mins="55" data-mod="1" data-make="Honda" data-cc="471" data-price="6000" data-km="24203" data-score="3" data-year="2016" data-abs="1">
+    <td class="rank"><span class="rankbadge"></span></td>
+    <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#dc262622,#dc262611);color:#dc2626">🏍<span>Honda</span></div></td>
+    <td><strong>2016 Honda CBR500R</strong><div class="sub">Lowering kit</div><div class="loc">Vaughan/Maple, ON · <em>Kijiji</em></div></td>
+    <td class="num">471 cc</td>
+    <td class="num"><span class="price">$6,000</span></td>
+    <td class="num">24,203 km</td>
+    <td class="num"><span style="font-weight:600;color:#334155">~55 min</span><div class="sub">Vaughan</div></td>
+    <td class="num">—</td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#92400e;background:#fef3c7;padding:3px 9px;border-radius:999px" title="Not stated in listing — verify">?</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#9a3412;background:#ffedd5;padding:3px 9px;border-radius:999px" title="Lowering kit (suspension) — insurer may want it noted">Yes</span></td>
+    <td><span style="color:#f59e0b">★★★</span><span style="color:#d1d5db">☆☆</span><div class="sub">Good — well maintained</div></td>
+    <td class="notes">24,203 km, well maintained, new tires (2024), road-ready beginner bike. ABS not stated (pre-2019) — verify. Lowering kit installed (set lowest) — great for shorter riders, but a suspension change insurers may want noted; also crash sliders + upgraded signals. Includes racks + charger.</td>
+    <td><a class="btn" href="https://www.kijiji.ca/v-sport-bikes/markham-york-region/2016-honda-cbr500r/1738185783" target="_blank">View ↗</a></td>
+  </tr>
+  <tr data-lat="43.579" data-lng="-79.63" data-mins="25" data-mod="0" data-make="Kawasaki" data-cc="649" data-price="6500" data-km="16000" data-score="4" data-year="2015" data-abs="2">
+    <td class="rank"><span class="rankbadge"></span></td>
+    <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#16a34a22,#16a34a11);color:#16a34a">🏍<span>Kawasaki</span></div></td>
+    <td><strong>2015 Kawasaki Ninja 650 ABS</strong><div class="sub">—</div><div class="loc">Mississauga, ON · <em>Kijiji</em></div></td>
+    <td class="num">649 cc</td>
+    <td class="num"><span class="price">$6,500</span></td>
+    <td class="num">16,000 km</td>
+    <td class="num"><span style="font-weight:600;color:#334155">~25 min</span><div class="sub">Mississauga</div></td>
+    <td class="num">—</td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px">ABS</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px" title="Maintenance only (tires/brakes/chain)">No</span></td>
+    <td><span style="color:#f59e0b">★★★★</span><span style="color:#d1d5db">☆</span><div class="sub">Very good — low km, kept</div></td>
+    <td class="notes">ABS confirmed (title). Low 16,000 km, garage-kept, well maintained — new tires, brakes &amp; chain at 13,000 km. Minor rock-chip scratches only. No performance mods. Bigger 649cc twin; honest, clean listing. Closest bike to Oakville.</td>
+    <td><a class="btn" href="https://www.kijiji.ca/v-sport-touring/mississauga-peel-region/2015-kawasaki-ninja-650-abs/1738491676" target="_blank">View ↗</a></td>
+  </tr>
+  <tr data-lat="43.8975" data-lng="-78.9429" data-mins="85" data-mod="0" data-make="Kawasaki" data-cc="649" data-price="6599" data-km="1100" data-score="5" data-year="2022" data-abs="1.5">
+    <td class="rank"><span class="rankbadge"></span></td>
+    <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#16a34a22,#16a34a11);color:#16a34a">🏍<span>Kawasaki</span></div></td>
+    <td><strong>2022 Kawasaki Ninja 650 KRT</strong><div class="sub">KRT edition</div><div class="loc">Whitby, ON · <em>Kijiji</em></div></td>
+    <td class="num">649 cc</td>
+    <td class="num"><span class="price">$6,599</span></td>
+    <td class="num">1,100 km</td>
+    <td class="num"><span style="font-weight:600;color:#334155">~1h25</span><div class="sub">Whitby</div></td>
+    <td class="num">—</td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#0e7490;background:#cffafe;padding:3px 9px;border-radius:999px" title="Assumed yes — 2019+ model (ABS standard/typical); verify">ABS*</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px" title="Stock">No</span></td>
+    <td><span style="color:#f59e0b">★★★★★</span><span style="color:#d1d5db"></span><div class="sub">Excellent — 1,100 km, like new</div></td>
+    <td class="notes">Almost new — just 1,100 km, "like new." KRT is a graphics edition (mechanically a Ninja 650). ABS not stated but standard-typical on 2019+ — verify. Completely stock. $6,599 OBO. By far the lowest-km used 650 here.</td>
+    <td><a class="btn" href="https://www.kijiji.ca/v-sport-bikes/oshawa-durham-region/2022-kawasaki-ninja-650-krt/1737601899" target="_blank">View ↗</a></td>
+  </tr>
+  <tr data-lat="43.885" data-lng="-78.955" data-mins="85" data-mod="0" data-make="Honda" data-cc="471" data-price="6975" data-km="21000" data-score="3" data-year="2023" data-abs="2">
+    <td class="rank"><span class="rankbadge"></span></td>
+    <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#dc262622,#dc262611);color:#dc2626">🏍<span>Honda</span></div></td>
+    <td><strong>2023 Honda CBR500R ABS</strong><div class="sub">AS-IS · 5yr ext. warranty</div><div class="loc">Whitby, ON · <em>Kijiji</em></div></td>
+    <td class="num">471 cc</td>
+    <td class="num"><span class="price">$6,975</span></td>
+    <td class="num">21,000 km</td>
+    <td class="num"><span style="font-weight:600;color:#334155">~1h25</span><div class="sub">Whitby</div></td>
+    <td class="num">3rd</td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px">ABS</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px" title="Cosmetic only: tail tidy, tinted windshield">No</span></td>
+    <td><span style="color:#f59e0b">★★★</span><span style="color:#d1d5db">☆☆</span><div class="sub">Good — as-is but warrantied</div></td>
+    <td class="notes">ABS confirmed. 21,000 km, 3rd owner. SOLD AS-IS — but includes a transferable 5-yr extended warranty (tied to VIN) and a full service July 2025 (oil, brake fluid, new chain). Only cosmetic mods (tail tidy, tinted shield). 2 keys + UVIP. Paid $9,300 new. As-is is the flag; the warranty offsets it.</td>
+    <td><a class="btn" href="https://www.kijiji.ca/v-sport-touring/oshawa-durham-region/honda-2023-cbr500-abs-with-5-years-extended-warranty/1738486384" target="_blank">View ↗</a></td>
+  </tr>
+  <tr data-lat="43.84" data-lng="-79.52" data-mins="55" data-mod="1" data-make="Kawasaki" data-cc="649" data-price="7300" data-km="17102" data-score="4" data-year="2019" data-abs="2">
+    <td class="rank"><span class="rankbadge"></span></td>
+    <td class="thumb"><div class="ph" style="background:linear-gradient(135deg,#16a34a22,#16a34a11);color:#16a34a">🏍<span>Kawasaki</span></div></td>
+    <td><strong>2019 Kawasaki Ninja 650 KRT</strong><div class="sub">EX650 KRT · Yoshimura</div><div class="loc">Vaughan, ON · <em>Kijiji</em></div></td>
+    <td class="num">649 cc</td>
+    <td class="num"><span class="price">$7,300</span></td>
+    <td class="num">17,102 km</td>
+    <td class="num"><span style="font-weight:600;color:#334155">~55 min</span><div class="sub">Vaughan</div></td>
+    <td class="num">—</td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px">ABS</span></td>
+    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#9a3412;background:#ffedd5;padding:3px 9px;border-radius:999px" title="Yoshimura exhaust — insurance-relevant">Yes</span></td>
+    <td><span style="color:#f59e0b">★★★★</span><span style="color:#d1d5db">☆</span><div class="sub">Very good — mint, serviced</div></td>
+    <td class="notes">ABS confirmed ("ex650ABS"). Mint, 17,102 km, just serviced + new tires &amp; brake pads. Yoshimura exhaust = insurance-relevant. KRT edition. Priciest bike here at $7,300; seller will trade for 600cc+. Well kept.</td>
+    <td><a class="btn" href="https://www.kijiji.ca/v-sport-touring/markham-york-region/2019-ninja-ex-650-krt-edition/1738070075" target="_blank">View ↗</a></td>
+  </tr>
+  </tbody></table></div><div class="disclaimer"><strong>How to read this &amp; caveats:</strong> <span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:2px 8px;border-radius:999px">ABS</span> = confirmed in the listing, <span style="display:inline-block;font-size:11px;font-weight:700;color:#0e7490;background:#cffafe;padding:2px 8px;border-radius:999px">ABS*</span> = assumed yes (2019+ model, where ABS is standard/typical) — still verify, <span style="display:inline-block;font-size:11px;font-weight:700;color:#991b1b;background:#fee2e2;padding:2px 8px;border-radius:999px">No</span> = model/year had no ABS, <span style="display:inline-block;font-size:11px;font-weight:700;color:#92400e;background:#fef3c7;padding:2px 8px;border-radius:999px">?</span> = not stated, verify with seller. ABS was often a separate model/option on these bikes (e.g. Honda "RA" = ABS), so a "?" doesn't mean it lacks ABS — check the VIN/bike in person. Condition ratings (★) are my rough read of each listing's wording, photos and detail level — not a physical inspection. Prices are asking prices; private sales usually exclude safety certification and the dealer/AS-IS listings exclude HST, licensing and OMVIC fees. Thumbnails are styled placeholders (marketplace image URLs are access-restricted); use "View ↗" for real photos. <strong>Modified</strong> flags insurance-relevant changes — aftermarket exhaust, lowering/suspension, engine/performance parts — as <span style="display:inline-block;font-size:11px;font-weight:700;color:#9a3412;background:#ffedd5;padding:2px 8px;border-radius:999px">Yes</span>; purely cosmetic items (tinted visor, plate tidy / fender eliminator, levers, tail tidy) count as <span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:2px 8px;border-radius:999px">No</span>. Hover a badge for the specific part, and always disclose mods to your insurer. <strong>Travel times</strong> are rough one-way driving estimates from Oakville, ON in light traffic — verify your own route. Three Ottawa listings (~4.5 h each) were removed for exceeding the 2-hour limit. Always inspect in person and verify ownership/UVIP before buying.</div></div><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script><script>function sortTable(col,type){var tb=document.querySelector('tbody');var rows=[].slice.call(tb.querySelectorAll('tr'));var asc=tb.getAttribute('data-sortcol')==col?tb.getAttribute('data-asc')!=='true':true;rows.sort(function(a,b){var x,y;if(type==='num'){x=parseFloat(a.dataset[col]);y=parseFloat(b.dataset[col]);}else{x=a.dataset[col];y=b.dataset[col];}if(x<y)return asc?-1:1;if(x>y)return asc?1:-1;return 0;});rows.forEach(function(r){tb.appendChild(r);});tb.setAttribute('data-sortcol',col);tb.setAttribute('data-asc',asc);}function applyFilter(){var mk=document.getElementById('fMake').value;var maxP=parseFloat(document.getElementById('fPrice').value)||Infinity;var maxK=parseFloat(document.getElementById('fKm').value)||Infinity;var ab=document.getElementById('fAbs').value;var md=document.getElementById('fMod').value;[].slice.call(document.querySelectorAll('tbody tr')).forEach(function(r){var ok=(mk==='all'||r.dataset.make===mk)&&parseFloat(r.dataset.price)<=maxP&&parseFloat(r.dataset.km)<=maxK&&(ab==='all'||r.dataset.abs==='2')&&(md==='all'||(md==='yes'?r.dataset.mod==='1':r.dataset.mod==='0'));r.classList.toggle('hidden',!ok);});}var _map,_layer,_built=false;function _mkColor(mk){return mk==='Honda'?'#dc2626':'#16a34a';}function renderRanksAndMap(){var rows=[].slice.call(document.querySelectorAll('tbody tr')).filter(function(r){return !r.classList.contains('hidden');});var pts=[];rows.forEach(function(r,i){var n=i+1;var rb=r.querySelector('.rankbadge');if(rb){rb.textContent=n;rb.style.background=_mkColor(r.dataset.make);}if(r.dataset.lat){pts.push({n:n,lat:parseFloat(r.dataset.lat),lng:parseFloat(r.dataset.lng),mk:r.dataset.make,title:r.querySelector('strong').textContent,price:(r.querySelector('.price')||{}).textContent||'',url:(r.querySelector('a.btn')||{}).href||'#'});}});if(_map&&_layer){_layer.clearLayers();var g=[];pts.forEach(function(p){var ic=L.divIcon({className:'',iconSize:[26,26],iconAnchor:[13,13],html:'<div class="mapmarker" style="background:'+_mkColor(p.mk)+'">'+p.n+'</div>'});L.marker([p.lat,p.lng],{icon:ic}).bindPopup('<strong>#'+p.n+' '+p.title+'</strong><br>'+p.price+'<br><a href="'+p.url+'" target="_blank">View listing ↗</a>').addTo(_layer);g.push([p.lat,p.lng]);});var hi=L.divIcon({className:'',iconSize:[30,30],iconAnchor:[15,15],html:'<div class="homemarker">🏠</div>'});L.marker([43.4675,-79.6877],{icon:hi}).bindPopup('<strong>Oakville, ON</strong><br>Home / start point').addTo(_layer);g.push([43.4675,-79.6877]);if(g.length)_map.fitBounds(g,{padding:[40,40]});}}function toggleMap(){var box=document.getElementById('mapbox'),btn=document.getElementById('mapBtn');var show=box.style.display===''||box.style.display==='none';box.style.display=show?'block':'none';btn.textContent=show?'🗺 Hide map':'🗺 Show map';if(show){if(!_built){_map=L.map('map',{scrollWheelZoom:false}).setView([43.6,-79.9],8);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(_map);_layer=L.layerGroup().addTo(_map);_built=true;}setTimeout(function(){_map.invalidateSize();renderRanksAndMap();},60);}}var _origSort=sortTable,_origFilter=applyFilter;sortTable=function(c,t){_origSort(c,t);renderRanksAndMap();};applyFilter=function(){_origFilter();renderRanksAndMap();};(function(){var tb=document.querySelector('tbody');tb.setAttribute('data-sortcol','price');tb.setAttribute('data-asc','true');sortTable('price','num');})();</script></body></html>
