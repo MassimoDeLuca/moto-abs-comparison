@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Motorcycle Comparison</title><style>:root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}header{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;padding:28px 24px}header h1{margin:0 0 4px;font-size:24px}header p{margin:0;color:#cbd5e1;font-size:14px}.wrap{max-width:1680px;margin:0 auto;padding:24px}.summary{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;flex:1;min-width:110px}.stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.stat .v{font-size:18px;font-weight:700;margin-top:2px}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}.controls label{font-size:13px;color:var(--muted);font-weight:600}.controls select,.controls input{font-size:13px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#fff}table.main{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}table.main th{background:#f1f5f9;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);padding:11px 10px;cursor:pointer;user-select:none;white-space:nowrap}table.main th:hover{background:#e2e8f0}table.main td{padding:11px 10px;border-top:1px solid var(--line);vertical-align:top;font-size:13.5px}tr.hidden{display:none}.sub{font-size:12px;color:var(--muted)}.loc{font-size:11px;color:var(--muted);margin-top:2px}.num{white-space:nowrap}.price{font-weight:700;color:#0f172a;font-size:15px}.notes{font-size:12.5px;color:#334155;min-width:240px;max-width:340px}.thumb .ph{width:84px;height:60px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;font-weight:700}.thumb .ph span{font-size:10px;margin-top:2px}.btn{display:inline-block;background:#0f172a;color:#fff;text-decoration:none;padding:7px 11px;border-radius:8px;font-size:12px;font-weight:600;white-space:nowrap}.btn:hover{background:#334155}.disclaimer{margin-top:22px;font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}.scroll{overflow-x:auto}#mapbox{display:none;margin-bottom:16px}#map{height:460px;border:1px solid var(--line);border-radius:12px}.mapnote{font-size:12px;color:var(--muted);margin:6px 2px 0}.rankbadge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;color:#fff;font-weight:700;font-size:12px;background:#64748b}.mapmarker{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:13px;box-sizing:border-box;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.45)}.homemarker{display:flex;align-items:center;justify-content:center;width:30px;height:30px;font-size:20px}#mapBtn{border:none;cursor:pointer}</style><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous"/></head><body><header><h1>🏍 Motorcycle Listing Comparison</h1><p>Aggregated &amp; evaluated from your open tabs · 24 listings within ~2h drive of Oakville, ON (Facebook, Kijiji, dealer) · generated 2026-06-24</p></header><div class="wrap"><div class="summary"><div class="stat"><div class="k">Listings</div><div class="v">24</div></div><div class="stat"><div class="k">Price range</div><div class="v">$4,200–$7,300</div></div><div class="stat"><div class="k">Avg price</div><div class="v">$6,150</div></div><div class="stat"><div class="k">KM range</div><div class="v">3,512–45,000</div></div><div class="stat"><div class="k">CC range</div><div class="v">399–649 cc</div></div><div class="stat"><div class="k">ABS confirmed</div><div class="v">19 + 2*</div></div><div class="stat"><div class="k">Unmodified</div><div class="v">17 of 24</div></div><div class="stat"><div class="k">Messaged</div><div class="v">10 of 24</div></div><div class="stat"><div class="k">Max travel</div><div class="v">~1h25</div></div></div><div class="controls"><label>Make: <select id="fMake" onchange="applyFilter()"><option value="all">All</option><option>Kawasaki</option><option>Honda</option></select></label><label>Max price: <input id="fPrice" type="number" placeholder="any" style="width:90px" oninput="applyFilter()"></label><label>Max km: <input id="fKm" type="number" placeholder="any" style="width:90px" oninput="applyFilter()"></label><label>ABS: <select id="fAbs" onchange="applyFilter()"><option value="all">All</option><option value="yes">Confirmed only</option><option value="likely">Confirmed + likely</option></select></label><label>Mods: <select id="fMod" onchange="applyFilter()"><option value="all">All</option><option value="no">Stock only</option><option value="yes">Modified only</option></select></label><label>Messaged: <select id="fMsg" onchange="applyFilter()"><option value="all">All</option><option value="yes">Messaged</option><option value="no">Not yet</option></select></label><span style="font-size:12px;color:var(--muted);font-weight:400">← click any column header to sort</span><button id="mapBtn" class="btn" onclick="toggleMap()">🗺 Show map</button></div><div id="mapbox"><div id="map"></div><div class="mapnote">Markers are approximate city locations (listings give a city, not an address). Numbers match the current table sort order; 🏠 = Oakville start point. Tiles © OpenStreetMap contributors.</div></div><div class="scroll"><table class="main"><thead><tr><th>#</th><th onclick="sortTable('year','num')">Year / Make / Model ⇅</th><th onclick="sortTable('cc','num')">CC ⇅</th><th onclick="sortTable('price','num')">Price ⇅</th><th onclick="sortTable('km','num')">KM ⇅</th><th onclick="sortTable('mins','num')">Travel ⇅</th><th onclick="sortTable('abs','num')">ABS ⇅</th><th onclick="sortTable('mod','num')">Modified ⇅</th><th onclick="sortTable('messaged','num')">Messaged ⇅</th><th onclick="sortTable('score','num')">Condition ⇅</th><th>Notes &amp; flags</th><th></th></tr></thead><tbody data-sortcol="" data-asc="">
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Motorcycle Comparison</title><style>:root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}header{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;padding:28px 24px}header h1{margin:0 0 4px;font-size:24px}header p{margin:0;color:#cbd5e1;font-size:14px}.wrap{max-width:1680px;margin:0 auto;padding:24px}.summary{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;flex:1;min-width:110px}.stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.stat .v{font-size:18px;font-weight:700;margin-top:2px}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}.controls label{font-size:13px;color:var(--muted);font-weight:600}.controls select,.controls input{font-size:13px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#fff}table.main{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}table.main th{background:#f1f5f9;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);padding:11px 10px;cursor:pointer;user-select:none;white-space:nowrap}table.main th:hover{background:#e2e8f0}table.main td{padding:11px 10px;border-top:1px solid var(--line);vertical-align:top;font-size:13.5px}tr.hidden{display:none}.sub{font-size:12px;color:var(--muted)}.loc{font-size:11px;color:var(--muted);margin-top:2px}.num{white-space:nowrap}.price{font-weight:700;color:#0f172a;font-size:15px}.notes{font-size:12.5px;color:#334155;min-width:240px;max-width:340px}.thumb .ph{width:84px;height:60px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;font-weight:700}.thumb .ph span{font-size:10px;margin-top:2px}.btn{display:inline-block;background:#0f172a;color:#fff;text-decoration:none;padding:7px 11px;border-radius:8px;font-size:12px;font-weight:600;white-space:nowrap}.btn:hover{background:#334155}.disclaimer{margin-top:22px;font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}.scroll{overflow-x:auto}#mapbox{display:none;margin-bottom:16px}#map{height:460px;border:1px solid var(--line);border-radius:12px}.mapnote{font-size:12px;color:var(--muted);margin:6px 2px 0}.rankbadge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;color:#fff;font-weight:700;font-size:12px;background:#64748b}.mapmarker{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:13px;box-sizing:border-box;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.45)}.homemarker{display:flex;align-items:center;justify-content:center;width:30px;height:30px;font-size:20px}#mapBtn{border:none;cursor:pointer}</style><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous"/></head><body><header><h1>🏍 Motorcycle Listing Comparison</h1><p>Aggregated &amp; evaluated from your open tabs · 22 listings within ~2h drive of Oakville, ON (Facebook, Kijiji, dealer) · generated 2026-06-24</p></header><div class="wrap"><div class="summary"><div class="stat"><div class="k">Listings</div><div class="v">22</div></div><div class="stat"><div class="k">Price range</div><div class="v">$4,200–$7,300</div></div><div class="stat"><div class="k">Avg price</div><div class="v">$6,227</div></div><div class="stat"><div class="k">KM range</div><div class="v">3,512–45,000</div></div><div class="stat"><div class="k">CC range</div><div class="v">399–649 cc</div></div><div class="stat"><div class="k">ABS confirmed</div><div class="v">19 + 1*</div></div><div class="stat"><div class="k">Unmodified</div><div class="v">15 of 22</div></div><div class="stat"><div class="k">Messaged</div><div class="v">8 of 22</div></div><div class="stat"><div class="k">Max travel</div><div class="v">~1h25</div></div></div><div class="controls"><label>Make: <select id="fMake" onchange="applyFilter()"><option value="all">All</option><option>Kawasaki</option><option>Honda</option></select></label><label>Max price: <input id="fPrice" type="number" placeholder="any" style="width:90px" oninput="applyFilter()"></label><label>Max km: <input id="fKm" type="number" placeholder="any" style="width:90px" oninput="applyFilter()"></label><label>ABS: <select id="fAbs" onchange="applyFilter()"><option value="all">All</option><option value="yes">Confirmed only</option><option value="likely">Confirmed + likely</option></select></label><label>Mods: <select id="fMod" onchange="applyFilter()"><option value="all">All</option><option value="no">Stock only</option><option value="yes">Modified only</option></select></label><label>Messaged: <select id="fMsg" onchange="applyFilter()"><option value="all">All</option><option value="yes">Messaged</option><option value="no">Not yet</option></select></label><span style="font-size:12px;color:var(--muted);font-weight:400">← click any column header to sort</span><button id="mapBtn" class="btn" onclick="toggleMap()">🗺 Show map</button></div><div id="mapbox"><div id="map"></div><div class="mapnote">Markers are approximate city locations (listings give a city, not an address). Numbers match the current table sort order; 🏠 = Oakville start point. Tiles © OpenStreetMap contributors.</div></div><div class="scroll"><table class="main"><thead><tr><th>#</th><th onclick="sortTable('year','num')">Year / Make / Model ⇅</th><th onclick="sortTable('cc','num')">CC ⇅</th><th onclick="sortTable('price','num')">Price ⇅</th><th onclick="sortTable('km','num')">KM ⇅</th><th onclick="sortTable('mins','num')">Travel ⇅</th><th onclick="sortTable('abs','num')">ABS ⇅</th><th onclick="sortTable('mod','num')">Modified ⇅</th><th onclick="sortTable('messaged','num')">Messaged ⇅</th><th onclick="sortTable('score','num')">Condition ⇅</th><th>Notes &amp; flags</th><th></th></tr></thead><tbody data-sortcol="" data-asc="">
   <tr data-messaged="0" data-lat="43.75" data-lng="-79.37" data-mins="45" data-mod="0" data-make="Honda" data-cc="471" data-price="6999" data-km="10800" data-score="5" data-year="2019" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td><strong>2019 Honda CBR500R ABS</strong><div class="sub">CBR500RA</div><div class="loc">North York, ON · <em>Kijiji</em></div></td>
@@ -14,6 +14,7 @@
     <td class="notes">Excellent, 10,800 km, always stored indoors, slipper clutch, safety bars. ABS confirmed. Seller states "no modifications." Selling to upgrade; cover included. Clean, well-documented Kijiji listing. (Also cross-posted on Facebook.)</td>
     <td><a class="btn" href="https://www.kijiji.ca/v-sport-bikes/city-of-toronto/2019-honda-cbr500r-abs-sport-bike-10-000-km/1739432561" target="_blank">View ↗</a></td>
   </tr>
+
 
 
 
@@ -42,6 +43,7 @@
 
 
 
+
   <tr data-messaged="1" data-lat="43.84" data-lng="-79.52" data-mins="50" data-mod="1" data-make="Honda" data-cc="471" data-price="6000" data-km="24203" data-score="3" data-year="2016" data-abs="1">
     <td class="rank"><span class="rankbadge"></span></td>
     <td><strong>2016 Honda CBR500R</strong><div class="sub">Lowering kit</div><div class="loc">Maple (Vaughan), ON · <em>Kijiji</em></div></td>
@@ -56,6 +58,7 @@
     <td class="notes"><strong>📩 Convo:</strong> You told seller (Sarina) $6k is high for a 2016 w/ 24k km sold <em>as-is, no test rides</em> — interested but not at $6k. Awaiting reply. 24,203 km but barely ridden (new rider lost confidence). New tires 2024, well winterized. ABS not stated (pre-2019) — verify. Lowering kit (set lowest) + crash sliders; sold as-is, no test drives. Includes racks + charger.</td>
     <td><a class="btn" href="https://www.kijiji.ca/v-sport-bikes/markham-york-region/2016-honda-cbr500r/1738185783" target="_blank">View ↗</a></td>
   </tr>
+
 
 
 
@@ -84,6 +87,7 @@
 
 
 
+
   <tr data-messaged="1" data-lat="44.33" data-lng="-79.59" data-mins="85" data-mod="0" data-make="Honda" data-cc="471" data-price="4800" data-km="45000" data-score="3" data-year="2022" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td><strong>2022 Honda CBR500R ABS</strong><div class="sub">—</div><div class="loc">Innisfil (Barrie), ON · <em>Kijiji</em></div></td>
@@ -98,6 +102,7 @@
     <td class="notes"><strong>📩 Convo:</strong> Seller (Chris) is 6’3/240 lb, found it a bit cramped after 1h+; it’s his first bike and he knows little of its history — bought it because it was the only dealer-certified CBR500R near him. No maintenance records. ABS confirmed. Bought certified from a dealer 4 months ago for $5,500; reselling at $4,800 OBO because too cramped for a 6’3 rider. Stock. Highest km here (45,000) and farthest north — but cheapest, and recently certified.</td>
     <td><a class="btn" href="https://www.kijiji.ca/v-sport-bikes/barrie/2022-honda-cbr500r-abs/1739519793" target="_blank">View ↗</a></td>
   </tr>
+
 
 
 
@@ -126,6 +131,7 @@
 
 
 
+
   <tr data-messaged="0" data-lat="43.26" data-lng="-79.87" data-mins="30" data-mod="0" data-make="Kawasaki" data-cc="399" data-price="6250" data-km="13768" data-score="4" data-year="2021" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td><strong>2021 Kawasaki Ninja 400 ABS</strong><div class="sub">Black</div><div class="loc">Hamilton, ON · <em>Facebook</em></div></td>
@@ -140,6 +146,7 @@
     <td class="notes">One rider, never dropped, excellent condition. 13,768 km. New Michelin Road 6 rear tire (2025) + fresh oil — maintenance, not mods → stock. ABS confirmed. Close to Oakville.</td>
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/1614040520725483/" target="_blank">View ↗</a></td>
   </tr>
+
 
 
 
@@ -168,6 +175,7 @@
 
 
 
+
   <tr data-messaged="0" data-lat="43.06" data-lng="-79.58" data-mins="45" data-mod="0" data-make="Kawasaki" data-cc="399" data-price="6700" data-km="5000" data-score="5" data-year="2023" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td><strong>2023 Kawasaki Ninja 400 ABS</strong><div class="sub">Metallic Carbon Grey</div><div class="loc">West Lincoln, ON · <em>Facebook</em></div></td>
@@ -182,6 +190,7 @@
     <td class="notes">Pristine 5,000 km, never dropped, garage-stored, clean title, UVIP included. Factory ABS. "No mechanical/performance mods" — only an aftermarket black windscreen, and the original clear one is included, so counted stock. Serious buyers only.</td>
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/1624448905294880/" target="_blank">View ↗</a></td>
   </tr>
+
 
 
 
@@ -210,6 +219,7 @@
 
 
 
+
   <tr data-messaged="0" data-lat="43.66" data-lng="-79.38" data-mins="50" data-mod="0" data-make="Kawasaki" data-cc="399" data-price="6600" data-km="5364" data-score="5" data-year="2023" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td><strong>2023 Kawasaki Ninja 400 ABS</strong><div class="sub">Bone stock</div><div class="loc">Toronto, ON · <em>Facebook</em></div></td>
@@ -224,6 +234,7 @@
     <td class="notes">"Very clean, bone stock" 5,364 km. Fresh oil + OEM filter days ago, UVIP + manual + tool kit + both keys. Frame sliders (protective, not insurance-relevant). Minor scuffs from one wall rub, stored indoors. No trades.</td>
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/1054841764387327/" target="_blank">View ↗</a></td>
   </tr>
+
 
 
 
@@ -252,6 +263,7 @@
 
 
 
+
   <tr data-messaged="0" data-lat="43.6" data-lng="-79.66" data-mins="25" data-mod="0" data-make="Kawasaki" data-cc="451" data-price="6700" data-km="7000" data-score="3" data-year="2024" data-abs="1.5">
     <td class="rank"><span class="rankbadge"></span></td>
     <td><strong>2024 Kawasaki Ninja 500</strong><div class="sub">500 (confirmed via photos)</div><div class="loc">Mississauga, ON · <em>Facebook</em></div></td>
@@ -266,6 +278,7 @@
     <td class="notes">2024 Ninja 500 (model confirmed via photos). 7,000 km, 2 owners, never dropped (one curb scrape). LV (Leo Vince) exhaust + lowered, BUT all stock parts included → counted stock per your rule. ABS not stated; assumed (2019+). Recently safetied. Price firm.</td>
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/1028345423081302/" target="_blank">View ↗</a></td>
   </tr>
+
 
 
 
@@ -294,6 +307,7 @@
 
 
 
+
   <tr data-messaged="0" data-lat="43.78" data-lng="-79.25" data-mins="65" data-mod="0" data-make="Kawasaki" data-cc="399" data-price="6200" data-km="4300" data-score="5" data-year="2019" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td><strong>2019 Kawasaki Ninja 400 SE</strong><div class="sub">Special Edition · ABS</div><div class="loc">Scarborough, ON · <em>Facebook</em></div></td>
@@ -308,6 +322,7 @@
     <td class="notes">2019 Ninja 400 Special Edition ABS, pristine, only 4,300 km, never dropped, no scratches, 2 owners, 2 keys, stock. New battery, indoor stored. Private sale (save tax). Among the best low-km 400s here.</td>
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/1374877608039430/" target="_blank">View ↗</a></td>
   </tr>
+
 
 
 
@@ -336,6 +351,7 @@
 
 
 
+
   <tr data-messaged="0" data-lat="43.36" data-lng="-80.31" data-mins="40" data-mod="0" data-make="Kawasaki" data-cc="649" data-price="7000" data-km="4000" data-score="5" data-year="2015" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td><strong>2015 Kawasaki Ninja 650 ABS</strong><div class="sub">—</div><div class="loc">Cambridge, ON · <em>Facebook</em></div></td>
@@ -351,26 +367,6 @@
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/1283150436920039/" target="_blank">View ↗</a></td>
   </tr>
 
-
-
-
-
-
-
-  <tr data-messaged="1" data-lat="43.65" data-lng="-79.4" data-mins="50" data-mod="0" data-make="Honda" data-cc="471" data-price="4600" data-km="7000" data-score="4" data-year="2015" data-abs="1">
-    <td class="rank"><span class="rankbadge"></span></td>
-    <td><strong>2015 Honda CBR500R</strong><div class="sub">—</div><div class="loc">Toronto, ON · <em>Facebook</em></div></td>
-    <td class="num">471 cc</td>
-    <td class="num"><span class="price">$4,600</span></td>
-    <td class="num">7,000 km</td>
-    <td class="num"><span style="font-weight:600;color:#334155">~50 min</span><div class="sub">Toronto</div></td>
-    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#92400e;background:#fef3c7;padding:3px 9px;border-radius:999px" title="Not stated in listing — verify">?</span></td>
-    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px" title="Stock (quad lock only)">No</span></td>
-    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#3730a3;background:#e0e7ff;padding:3px 9px;border-radius:999px">✓ Sent</span></td>
-    <td><span style="color:#f59e0b">★★★★</span><span style="color:#d1d5db">☆</span><div class="sub">Very good — low km, stock</div></td>
-    <td class="notes"><strong>📩 Convo:</strong> Asked re: ABS + more pics — seller (Saif) confirms <em>NO ABS</em>; awaiting your reply. Clean, well-maintained CBR500R, only 7,000 km, 1 owner, ownership + 2 keys, quad lock fitted (cosmetic). Everything stock, will pass safety (extra). ABS not stated (pre-2019) — verify. Cheapest low-km option.</td>
-    <td><a class="btn" href="https://www.facebook.com/marketplace/item/1728457768583856/" target="_blank">View ↗</a></td>
-  </tr>
 
 
 
@@ -399,6 +395,7 @@
 
 
 
+
   <tr data-messaged="1" data-lat="43.51" data-lng="-79.88" data-mins="20" data-mod="0" data-make="Honda" data-cc="471" data-price="4999" data-km="17850" data-score="3" data-year="2015" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td><strong>2015 Honda CBR500R ABS</strong><div class="sub">AS-IS? dealer · +HST</div><div class="loc">Milton, ON · <em>Facebook</em></div></td>
@@ -413,6 +410,7 @@
     <td class="notes"><strong>📩 Convo:</strong> Seller (Javaid) confirms it <em>was safetied</em>; you asked about scratches + whether the passenger seat is ripped or just water. Convo wrapped up. DEALER (Drive Machines, Milton) — $4,999 PLUS HST, so true cost ~$5,650. 17,850 km, brand new clutch, ABS confirmed, stock. Closest listing to Oakville (~20 min). Factor the tax + any dealer fees into the comparison.</td>
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/1535015628253420/" target="_blank">View ↗</a></td>
   </tr>
+
 
 
 
@@ -441,6 +439,7 @@
 
 
 
+
   <tr data-messaged="1" data-lat="43.83" data-lng="-79.5" data-mins="55" data-mod="1" data-make="Honda" data-cc="471" data-price="4200" data-km="30030" data-score="2" data-year="2015" data-abs="2">
     <td class="rank"><span class="rankbadge"></span></td>
     <td><strong>2015 Honda CBR500RA</strong><div class="sub">Two Brothers exhaust</div><div class="loc">Vaughan, ON · <em>Facebook</em></div></td>
@@ -456,26 +455,6 @@
     <td><a class="btn" href="https://www.facebook.com/marketplace/item/2462836940827887/" target="_blank">View ↗</a></td>
   </tr>
 
-
-
-
-
-
-
-  <tr data-messaged="1" data-lat="43.88" data-lng="-79.44" data-mins="60" data-mod="0" data-make="Honda" data-cc="471" data-price="5999" data-km="28000" data-score="3" data-year="2022" data-abs="1.5">
-    <td class="rank"><span class="rankbadge"></span></td>
-    <td><strong>2022 Honda CBR500R</strong><div class="sub">Cameras + 12V</div><div class="loc">Richmond Hill, ON · <em>Facebook</em></div></td>
-    <td class="num">471 cc</td>
-    <td class="num"><span class="price">$5,999</span></td>
-    <td class="num">28,000 km</td>
-    <td class="num"><span style="font-weight:600;color:#334155">~1h00</span><div class="sub">Richmond Hill</div></td>
-    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#0e7490;background:#cffafe;padding:3px 9px;border-radius:999px" title="Assumed yes — 2019+ model (ABS standard/typical); verify">ABS*</span></td>
-    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#065f46;background:#d1fae5;padding:3px 9px;border-radius:999px" title="Stock exhaust; only cameras/charger/quad lock added">No</span></td>
-    <td class="num"><span style="display:inline-block;font-size:11px;font-weight:700;color:#3730a3;background:#e0e7ff;padding:3px 9px;border-radius:999px">✓ Sent</span></td>
-    <td><span style="color:#f59e0b">★★★</span><span style="color:#d1d5db">☆☆</span><div class="sub">Good — well maintained, high km</div></td>
-    <td class="notes"><strong>📩 Convo:</strong> Seller (Mosab) confirms ABS + it’s a dealer, but <em>not certified</em> and has some damage; you asked for a video of the damage — he agreed to send. 2022 CBR500R, 28,000 km, clean title, no accidents. New brakes/tire/oil. Aftermarket front+rear cameras, 12V charging, quad lock — all accessories; STOCK exhaust → counted stock. ABS not explicitly stated but assumed (2022). Higher km for the year.</td>
-    <td><a class="btn" href="https://www.facebook.com/marketplace/item/1687605302364161/" target="_blank">View ↗</a></td>
-  </tr>
 
 
 
